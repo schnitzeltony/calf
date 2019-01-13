@@ -59,6 +59,9 @@ fluid_synth_t *fluidsynth_audio_module::create_synth(int &new_sfid)
     std::fill(set_presets, set_presets + 16, -1);
     fluid_settings_t *new_settings = new_fluid_settings();
     fluid_settings_setnum(new_settings, "synth.sample-rate", srate);
+#if FLUIDSYNTH_VERSION_MAJOR >= 2
+    fluid_settings_setint(new_settings, "synth.dynamic-sample-loading", 1);
+#endif
     fluid_synth_t *s = new_fluid_synth(new_settings);
     if (!soundfont.empty())
     {
